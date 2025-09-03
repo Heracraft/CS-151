@@ -1,0 +1,46 @@
+nums=[1,2,4,5]
+
+def getMean(nums):
+    total=someReducerFunction(nums)
+    return total/length
+
+def getMedian(nums):
+    middle=int(length/2)
+    if (middleIsEvenCondition):
+        #isEven
+        firstIndex=middle-1
+        secondIndex=middle
+        sumOfTwoMiddleTerms=nums[firstIndex]+nums[secondIndex]
+        return sumOfTwoMiddleTerms/2
+
+    else:
+        #isOdd
+        return nums[middle]
+
+def getMode(nums):
+    occurenceCount={}
+    keyWithHighestOccurence=null
+    highestOccurence=0
+    for currentNum in nums:
+        if (occurenceCount[currentNum]):
+            occurenceCount[currentNum]=occurenceCount[currentNum]++
+        else:
+            occurenceCount[currentNum]=1
+
+        if (occurenceCount[currentNum]>highestOccurence):
+            highestOccurence=occurenceCount[currentNum]
+            keyWithHighestOccurence=currentNum
+
+    return keyWithHighestOccurence
+
+print(getMean(nums))
+print(getMedian(nums))
+print(getMode(nums))
+    
+
+---
+
+Class Car:
+    --some properties--
+
+dreamCar=Car()
