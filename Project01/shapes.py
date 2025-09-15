@@ -15,7 +15,9 @@ tracer(False)
 # cross dimensions: 500 x 700
 
 
-def shapeC():
+def shapeC(functionBeforeCross):
+    # functionBeforeCross is some function to be executed before the cross is drawn
+    # it's purely here to allow me to draw shapeD behind the cross
 
     up()
     # forward(400)
@@ -26,6 +28,9 @@ def shapeC():
     begin_fill()
     drawRhombus(1000)
     end_fill()
+
+    if (functionBeforeCross):
+        functionBeforeCross()
 
     up()
     goto(0, 350)
@@ -61,12 +66,13 @@ def shapeD(origin, length, inclination, colorName,):
     end_fill()
 
 def shapeE():
-    shapeC()
-    for index, squareColor in enumerate(["#2118ff", "#3f42ff", "#767fff", "#a7b1ff"]):
-        # 500
-        origin= (-50, 100)
-        size = 300*(.8**index)
-        shapeD(origin, size, randint(60,90), squareColor)
+    def drawSquaresBehindCross():
+        for index, squareColor in enumerate(["#2118ff", "#3f42ff", "#767fff", "#a7b1ff"]):
+            origin= (-50, 100)
+            size = 300*(.8**index) # smaller size every iteration
+            shapeD(origin, size, randint(60,90), squareColor) #inclination is random
+
+    shapeC(drawSquaresBehindCross)
 
 
 shapeE()
