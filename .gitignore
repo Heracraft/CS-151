@@ -1,1 +1,5 @@
 *.zip
+
+*.eps
+
+screemshots.py
