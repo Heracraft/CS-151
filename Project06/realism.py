@@ -9,19 +9,21 @@ import graphicsPlus as gr
 import time
 import random
 
-from complex_shapes import initNest
+from complex_shapes import initShapes
 
 def drawShapes(win, shapes):
     for shape in shapes:
         shape.draw(win)
 
 def main():
-    windowWidth = 900
-    windowHeight = 1600
+    windowWidth = 600
+    windowHeight = 1000
 
     window = gr.GraphWin("Social realism scene", windowWidth, windowHeight)
 
-    shapes=initNest(windowWidth/2, 900,1)
+    window.setBackground("#2A3E4B")
+
+    shapes=initShapes(windowWidth/2, 900,1, windowHeight=windowHeight, windowWidth=windowWidth)
     drawShapes(window, shapes)
 
     # animating=True #set tot flase to stop the animation
