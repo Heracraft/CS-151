@@ -3,11 +3,10 @@ Nehemia Kaaya
 CS151
 Section B
 Project 06 Social realism scene
+==TODO: add instructions on how to run the project===
 """
 
 import graphicsPlus as gr
-import time
-import random
 
 from complex_shapes import initShapes
 

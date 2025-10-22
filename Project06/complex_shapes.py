@@ -1,12 +1,28 @@
+"""
+Nehemia Kaaya
+CS151
+Section B
+Project 06 Social realism scene
+complex_shapes.py
+Functions that make up my supa dupa realistic scene
+"""
+
 import graphicsPlus as gr
 import time
 import random
 import math
+import sys
 
 import datetime
 
+shapeLookUpTable = {}  # stores the indices of specific shapes I want to modify
+# bombs : [array of indices] # because there's multiple bombs
+
 
 def Point(x, y):
+    """
+        a shortand fuction for gr.Point. An alias.
+    """
     return gr.Point(x, y)
 
 
@@ -19,6 +35,9 @@ def getPointOnCircle(theta, radius, h=0, k=0,):
 
 
 def createRectangle(x, y, sizeTuple, outlineColor="purple", fillColor="yellow", outlineWidth=20):
+    """
+    Creates a rectangle shape object given an origin x,y, a size and optional cosmetic parameters
+    """
     width, height = sizeTuple
 
     rectangle = gr.Rectangle(gr.Point(x, y), gr.Point(x+width, y+height))
@@ -31,6 +50,9 @@ def createRectangle(x, y, sizeTuple, outlineColor="purple", fillColor="yellow", 
 
 
 def getCurrentTimeInDegrees():
+    """
+    Returns the current time, in hours and minutes represented as a set of degrees measured anti-clockwise (trigonometric)
+    """
     now = datetime.datetime.now()
     currentHour = abs(now.hour-12)
     currentMinute = now.minute
@@ -46,7 +68,11 @@ def getCurrentTimeInDegrees():
     return -currentHourInDegrees, -currentMinuteInDegrees  # gotta flip em
 
 
-def initBackground(paddingX, paddingY, windowWidth, windowHeight):
+def initBackground(paddingX, paddingY, windowWidth, windowHeight, dotCount=20):
+    """
+    Generates the shapes that make up the crow background for the scene.
+    """
+
     shapes = []
     x = windowWidth/2
     y = paddingY
@@ -66,6 +92,20 @@ def initBackground(paddingX, paddingY, windowWidth, windowHeight):
     crowBackgroundRight = gr.Image(
         Point(x+(deltaW*0.5)-10, y+(yellowRectangleHeight/2)), "assets/right.ppm")
     shapes.append(crowBackgroundRight)
+
+    xRange1 = list(range(10, int(x-150), 20))
+    xRange2 = list(range(int(x+(deltaW*0.5)), int(windowWidth), 20))
+
+    random.shuffle(xRange1)
+    random.shuffle(xRange2)
+
+    xRanges = xRange1+xRange2
+
+    for xCor in xRanges:
+        dot = gr.Circle(Point(xCor, random.randint(paddingY, int(
+            windowHeight*0.6))), radius=random.randint(0, 3))
+        dot.setFill("white")
+        shapes.append(dot)
 
     return shapes, (x, y+crowBackgroundLeft.getHeight()-50)
 
@@ -156,8 +196,8 @@ def initClockTower(x, y, s=1):
 
     y = y + rectangleHeight
 
-    rectangleHeight = 80
-    rectangleWidth = 50
+    rectangleHeight = 80 * s
+    rectangleWidth = 50 * s
     # create rectangle with gr.rectangle shape in 2 pieces
     leftRect2 = gr.Rectangle(Point(x, y),
                              Point(x-rectangleWidth/2, y+rectangleHeight))
@@ -182,6 +222,9 @@ def initClockTower(x, y, s=1):
 
 
 def initShip(x, y, s=1):
+    """
+    Generates the shapes that make up the ship given a starting coordinate x, y and a scale s.
+    """
     originalX = x
 
     shapes = []
@@ -206,9 +249,9 @@ def initShip(x, y, s=1):
     rightCircle.setFill("#797777")
     rightCircle.setWidth(0)
 
-    tailHeight = 20
-    tailWidth = 20
-    finWidth = 10
+    tailHeight = 20 * s
+    tailWidth = 20 * s
+    finWidth = 10 * s
 
     rightCircleX = x + rectangleWidth/2
     rightCircleY = y + shipHeight/2
@@ -226,12 +269,12 @@ def initShip(x, y, s=1):
     )
     tail.setFill("#4B4B4B")
 
-    xFinal = (x+(rectangleWidth/2))*s
-    x = (x-rectangleWidth/2)*s
+    xFinal = (x+(rectangleWidth/2))
+    x = (x-rectangleWidth/2)
     y = y+shipHeight
 
-    basketHeight = 10
-    xOffset = 20
+    basketHeight = 10*s
+    xOffset = 20*s
     basket = gr.Polygon(Point(x, y), Point(x+xOffset, y+basketHeight),
                         Point(xFinal-xOffset, y+basketHeight), Point(xFinal, y))
     basket.setFill("#797777")
@@ -246,11 +289,19 @@ def initShip(x, y, s=1):
 
 
 def initBombs(x, y, count=2, leaveTrail=True):
+    """
+    Generates the shapes that represent the bombs given bomb count, astarting coordinate x,y and a scale
+    """
     shapes = []
 
     originY = y
     possibleYOffsets = list(range(50, 200, 50))
     random.shuffle(possibleYOffsets)
+
+    args=sys.argv
+
+    if len(args)>=2:
+        count=int(args[1])
 
     for index in range(count):
         xOffset = random.randint(-20, 20)
