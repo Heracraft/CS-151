@@ -1,0 +1,37 @@
+[
+    {
+        "base": "F-F-F-F",
+        "rules": {
+            "F": "F-FF--F-F"
+        },
+        "description":"Basic example"
+    },
+    {
+        "base": "F",
+        "rules": {
+            "F": "FF-[-F+F+FL]+[+F-F-FL]"
+        }
+    },
+    {
+        "base":"-X",
+        "rules":{
+            "F":"FF",
+            "X":"F+[[X]-X]-F[-FX]+X"
+        },
+        "description":"Fractal plant 25 degree. For abstract scene"
+    },
+    {
+        "base": "F",
+        "rules": {
+            "F": "FF-[-F+F+F]+[+F-F-F]"
+        },
+        "description": "systemB lsystem"
+    },
+    {
+        "base": "F",
+        "rules": {
+            "F": "FF-[-F+F+F]+[+F-F-F]"
+        },
+        "description": "New tree for outdoor scene"
+    }
+]

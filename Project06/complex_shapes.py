@@ -325,22 +325,19 @@ def initShapes(x, y, s, windowHeight=1600, windowWidth=500, paddingX=200, paddin
     Assembles the shape given an origin x, y and a scale s
     """
 
-    # radius=50
-    radius = 200
-
     shapes = []
     backgroundShapes, newOrigin = initBackground(
         paddingX, paddingY, windowWidth, windowHeight, )
 
     shapes = shapes+backgroundShapes
 
-    shipShapes, coordinatesAfterShip = initShip(windowWidth/2, paddingY+50)
+    shipShapes, coordinatesAfterShip = initShip(windowWidth/2, paddingY+50, s=s)
 
     shapes = shapes+shipShapes
 
     x, y = newOrigin
 
-    shapes = shapes + initClockTower(x, y, 1)
+    shapes = shapes + initClockTower(x, y, s)
 
     x, y = coordinatesAfterShip
 

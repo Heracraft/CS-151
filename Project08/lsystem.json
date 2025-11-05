@@ -1,0 +1,29 @@
+[
+	{
+		"base": "F-F-F-F",
+		"rules": {
+			"F": "F-FF--F-F"
+		},
+		"description": "Basic example"
+	},
+	{
+		"base": "X",
+		"rules": { "X": "F[+XL]0[-XL]FXL", "F": "FF" },
+		"description": "SystemC.txt"
+	},
+	{
+		"base": "-X",
+		"rules": { "F": "FF", "X": "F+[[X]-X]-F[-FX]+X" },
+		"description":"wikipedia tree"
+	},
+	{
+    "base": "P",
+    "rules": {
+        "P": "I+[P+O]--[--<rL>]I[++<rL>]-[PO]++PO",
+        "I": "FS[+<yL>][-<gL>]FS",
+        "S": "SFS",
+        "O": "<y[++F][+F][F][-F][--F]>"
+    },
+    "description": "SystemFL.txt"
+}
+]

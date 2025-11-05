@@ -3,7 +3,7 @@ Nehemia Kaaya
 CS151
 Section B
 Project 06 Social realism scene
-==TODO: add instructions on how to run the project===
+To run, python realism.py <optional bom count int argument>
 """
 
 import graphicsPlus as gr
@@ -11,6 +11,9 @@ import graphicsPlus as gr
 from complex_shapes import initShapes
 
 def drawShapes(win, shapes):
+    """
+    Draws all the shapes provided on the specified window
+    """
     for shape in shapes:
         shape.draw(win)
 
