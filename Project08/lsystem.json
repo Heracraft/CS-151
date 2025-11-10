@@ -1,29 +1,66 @@
-[
-	{
+{
+	"Basic example": {
 		"base": "F-F-F-F",
 		"rules": {
 			"F": "F-FF--F-F"
-		},
-		"description": "Basic example"
+		}
 	},
-	{
+	"SystemC.txt": {
 		"base": "X",
-		"rules": { "X": "F[+XL]0[-XL]FXL", "F": "FF" },
-		"description": "SystemC.txt"
+		"rules": {
+			"X": "F[+XL]0[-XL]FXL",
+			"F": "FF"
+		}
 	},
-	{
+	"wikipedia tree": {
 		"base": "-X",
-		"rules": { "F": "FF", "X": "F+[[X]-X]-F[-FX]+X" },
-		"description":"wikipedia tree"
+		"rules": {
+			"F": "FF",
+			"X": "F+[[X]-X]-F[-FX]+X"
+		}
 	},
-	{
-    "base": "P",
-    "rules": {
-        "P": "I+[P+O]--[--<rL>]I[++<rL>]-[PO]++PO",
-        "I": "FS[+<yL>][-<gL>]FS",
-        "S": "SFS",
-        "O": "<y[++F][+F][F][-F][--F]>"
-    },
-    "description": "SystemFL.txt"
+	"SystemFL.txt": {
+		"base": "P",
+		"rules": {
+			"P": "I+[P+O]--[--<rL>]I[++<rL>]-[PO]++PO",
+			"I": "FS[+<yL>][-<gL>]FS",
+			"S": "SFS",
+			"O": "<y[++F][+F][F][-F][--F]>"
+		}
+	}
+	,
+	"SystemCL.txt": {
+		"base": "F",
+		"rules": {
+			"F": "FF-[-F+F+F<gL>]+[+F-F-F<gL>]"
+		}
+	},
+	"SystemGL.txt": {
+		"base": "A",
+		"rules": {
+			"A": "FFFFFFFFF[B]A",
+			"B": "FFFFFF[-D]C[+<gL>]",
+			"C": "FFFFFF[+D]B[-<gL>]",
+			"D": "FFFFF[+J]E[<gL>]M",
+			"E": "FFFFF[-J]D[<gL>]M",
+			"J": "FFF[-K]K[<gL>]M",
+			"K": "FFF[+J]J[<gL>]M",
+			"M": "<r[--F][-F][F][+F][++F]>"
+		}
+	},
+
+	"SystemEL.txt": {
+		"base": "FFA",
+		"rules": {
+			"A": "f[----fA<gL>][-fA<gL>][+++fA<gL>]",
+			"f": "FFf"
+		},
+		"angle":60
+	},
+	"custom":{
+		"base": "gF",
+		"rules": {
+			"F": "F[+F[gL]][-F[gL]]FF"
+		}
+	}
 }
-]

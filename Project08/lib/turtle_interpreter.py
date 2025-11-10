@@ -2,7 +2,7 @@
 Nehemia Kaaya
 CS 151
 Section B
-Project 07
+Project 08
 turtle_interpreter.py version 2
 
 Draws a shape from a given l-system string
@@ -14,10 +14,16 @@ import turtle
 
 class TurtleInterpreter:
 
-    def __init__(self, dx=800, dy=800):
+    def __init__(self, dx=800, dy=800, bgColor=None):
+        self.windowWidth=dx
+        self.windowHeight=dy
+
         turtle.setup(width=dx, height=dy)
 
         turtle.tracer(False)
+
+        if bgColor:
+            turtle.getscreen().bgcolor(bgColor)
 
     def drawString(self, dstring, distance, angle):
         """ Interpret the characters in string dstring as a series
@@ -58,6 +64,16 @@ class TurtleInterpreter:
                 turtle.goto(poppedPosition[0], poppedPosition[1])
                 turtle.down()
 
+            elif char == 'L':
+                (w) = turtle.width()
+                colorStack.append(turtle.color()[0])
+                turtle.left(30)
+                turtle.color('green')
+                turtle.width(4)
+                turtle.forward(distance/2)
+                turtle.color(colorStack.pop())
+                turtle.width(w)
+
             elif char == '<':
                 colorStack.append(turtle.color()[0])
 
@@ -77,6 +93,9 @@ class TurtleInterpreter:
             elif char == 'a':
                 turtle.end_fill()
         screen.update()
+
+    def getDimensions(self):
+        return (self.windowWidth, self.windowHeight)
 
     def place(self, xpos, ypos, angle=None):
         #  - the method should pick up the pen, place the turtle at location (xpos, ypos), orient the turtle if the angle argument is not None, and then put down the pen. Use the appropriate turtle commands to execute this.
