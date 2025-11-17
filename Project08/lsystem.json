@@ -62,5 +62,11 @@
 		"rules": {
 			"F": "F[+F[gL]][-F[gL]]FF"
 		}
+	},
+	"custom2":{
+		"base": "F",
+		"rules": {
+			"F": "[F-F-F-F]"
+		}
 	}
 }

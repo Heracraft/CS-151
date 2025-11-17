@@ -40,9 +40,9 @@ def main(argv):
 
     print(finalString)
 
-    interpreter.place(xpos=0, ypos="end")
+    interpreter.place(xpos=0, ypos=0)
     interpreter.orient(90)
-    interpreter.drawString(finalString, 10, 22)
+    interpreter.drawString(finalString, 10, 90)
 
     interpreter.hold()
 
