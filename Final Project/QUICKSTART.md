@@ -16,27 +16,39 @@
 
 ### Running the Project
 
-#### Option 1: Interactive Menu (Recommended for First-Time Users)
+#### Option 1: Graphical Home Page (New! Recommended)
 ```bash
 python3 main.py
 ```
-This launches a menu where you can select which scene to explore.
+This launches a beautiful 1200x900 graphical interface with:
+- Three large, clickable scene buttons
+- Color-coded by theme (brown, green, blue)
+- Scene descriptions and hints
+- Easy point-and-click navigation
 
-#### Option 2: Direct Scene Access
+#### Option 2: Text Menu Mode
+```bash
+python3 main.py --text
+```
+Use this for terminal-only environments or if you prefer text menus.
 
-**Scene 1 - The Sediment Core:**
+#### Option 3: Direct Scene Access
+
+**Scene 1 - The Sediment Core (1000x1300 - 2x scale):**
 ```bash
 python3 main.py scene1
 ```
 - Click on sediment layers to see year and chemical data
+- All visuals scaled 2x for better visibility
 - Close window to exit
 
-**Scene 2 - The Changing Forest:**
+**Scene 2 - The Changing Forest (1600x1600 - 2x scale):**
 ```bash
 python3 main.py scene2
 ```
 - Enter a year between 1511-2002 AD
 - Watch the forest change based on climate
+- Trees render at double scale
 - Press 'q' and click to exit
 
 **Scene 2 - Specific Year:**
@@ -45,11 +57,12 @@ python3 main.py scene2 1750
 ```
 - Directly visualize forest for year 1750
 
-**Scene 3 - The Solar Ripples:**
+**Scene 3 - The Solar Ripples (1600x1200 - 2x scale):**
 ```bash
 python3 main.py scene3
 ```
 - Click to progress through time
+- Ripples and lake at 2x scale
 - Press 'q' to quit
 - Close window to exit
 

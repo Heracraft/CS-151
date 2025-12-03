@@ -64,31 +64,43 @@ sudo apt-get install python3-tk
 
 ```
 Final Project/
-├── main.py                    # Main controller with menu system
+├── main.py                    # Main controller with graphical home page
 ├── data.json                  # Lake Masoko geochemical data (1511-2002 AD)
 ├── masoko_data_handler.py     # Data loading and processing functions
 ├── environmental_features.py  # Parent and child classes (OOP)
-├── scene1_sediment.py         # Scene 1: Sediment Core (Zelle graphics)
-├── scene2_forest.py           # Scene 2: Changing Forest (L-systems)
-├── scene3_ripples.py          # Scene 3: Solar Ripples (Recursion)
+├── scene1_sediment.py         # Scene 1: Sediment Core (Zelle graphics, 1000x1300)
+├── scene2_forest.py           # Scene 2: Changing Forest (L-systems, 1600x1600)
+├── scene3_ripples.py          # Scene 3: Solar Ripples (Recursion, 1600x1200)
 ├── graphics.py                # Zelle graphics library
 ├── lib/
 │   ├── lsystem.py            # L-System class
 │   └── turtle_interpreter.py  # TurtleInterpreter class
 └── views/
-    └── home.py               # (optional view components)
+    └── home.py               # Graphical home page/scene selector (1200x900)
 ```
 
 ## Usage
 
-### Interactive Menu Mode (Recommended)
+### Graphical Home Page (Default - Recommended)
 
 ```bash
 cd "Final Project"
 python3 main.py
 ```
 
-This launches an interactive menu where you can choose which scene to explore.
+This launches a beautiful graphical home page (1200x900) with:
+- Three large, color-coded scene buttons
+- Scene descriptions and interaction hints
+- Easy click-to-launch navigation
+- Professional visual layout
+
+### Text Menu Mode
+
+```bash
+python3 main.py --text
+```
+
+This launches the traditional text-based menu for terminal-only environments.
 
 ### Command-Line Mode
 
@@ -118,10 +130,24 @@ python3 scene2_forest.py
 python3 scene3_ripples.py
 ```
 
+## The Home Page
+
+**Window Size**: 1200 x 900 pixels  
+**Features**:
+- Interactive scene selector with three large buttons
+- Color-coded by theme:
+  - Scene 1: Brown (sediment/earth)
+  - Scene 2: Green (forest/vegetation)
+  - Scene 3: Blue (water/lake)
+- Clear scene descriptions
+- Exit button for clean shutdown
+- Professional typography and layout
+
 ## The Three Scenes
 
 ### Scene 1: The Sediment Core 📊
 
+**Window Size**: 1000 x 1300 pixels (2x scale)  
 **Concept**: Data-driven visualization of lake sediment layers  
 **Data Used**: Fe/Ti ratio (Iron/Titanium)  
 **Visualization**: Stacked rectangles representing sediment layers  
@@ -142,6 +168,7 @@ python3 scene3_ripples.py
 
 ### Scene 2: The Changing Forest 🌳
 
+**Window Size**: 1600 x 1600 pixels (2x scale)  
 **Concept**: Climate-driven forest visualization using L-systems  
 **Data Used**: Si/Ti ratio (Silicon/Titanium - aridity proxy)  
 **Visualization**: L-system generated trees with varying complexity  
@@ -153,6 +180,7 @@ python3 scene3_ripples.py
   - Low Si/Ti = Dry period → Sparse, simple vegetation
 - L-system iterations vary from 2-5 based on data
 - Different branching rules for different complexity levels
+- All trees render at double the original scale
 
 **CS Concepts:**
 - L-system string generation
@@ -162,6 +190,7 @@ python3 scene3_ripples.py
 
 ### Scene 3: The Solar Ripples 🌊
 
+**Window Size**: 1600 x 1200 pixels (2x scale)  
 **Concept**: Recursive visualization of solar activity cycles  
 **Data Used**: MagSus (Magnetic Susceptibility)  
 **Visualization**: Concentric ripples with recursive depth  
@@ -172,6 +201,7 @@ python3 scene3_ripples.py
 - Higher MagSus → More recursion depth (brighter, more ripples)
 - Lower MagSus → Fewer ripples (dimmer colors)
 - Click to advance through time periods chronologically
+- Lake visualization more immersive at 2x scale
 
 **CS Concepts:**
 - Recursive function implementation
