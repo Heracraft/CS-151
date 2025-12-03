@@ -15,14 +15,14 @@ from masoko_data_handler import read_data, get_value_range, normalize_value
 from environmental_features import SedimentLayer
 
 
-def create_sediment_layers(data, x=250, y_start=50, layer_height=8):
+def create_sediment_layers(data, x=500, y_start=100, layer_height=16):
     """
     Create SedimentLayer objects from the dataset.
     
     :param data: List of data dictionaries from masoko_data_handler
-    :param x: X position for the center of layers (default: 250)
-    :param y_start: Y position to start drawing (default: 50)
-    :param layer_height: Height of each layer in pixels (default: 8)
+    :param x: X position for the center of layers (default: 500)
+    :param y_start: Y position to start drawing (default: 100)
+    :param layer_height: Height of each layer in pixels (default: 16)
     :return: List of SedimentLayer objects
     """
     # Get Fe/Ti value range for normalization
@@ -65,14 +65,14 @@ def draw_sediment_core(win, layers, title="The Sediment Core: 500 Years of Lake 
     :return: List of drawn layers with their y positions
     """
     # Draw title
-    title_text = Text(Point(250, 20), title)
-    title_text.setSize(14)
+    title_text = Text(Point(500, 40), title)
+    title_text.setSize(18)
     title_text.setStyle("bold")
     title_text.draw(win)
     
     # Draw instruction text
-    instruction = Text(Point(250, 35), "Click on a layer to see its data")
-    instruction.setSize(10)
+    instruction = Text(Point(500, 70), "Click on a layer to see its data")
+    instruction.setSize(12)
     instruction.setFill(color_rgb(100, 100, 100))
     instruction.draw(win)
     
@@ -86,30 +86,30 @@ def draw_sediment_core(win, layers, title="The Sediment Core: 500 Years of Lake 
     if layers:
         # Oldest layer (bottom)
         oldest = layers[-1]
-        oldest_label = Text(Point(320, oldest.y_position + 4), 
+        oldest_label = Text(Point(640, oldest.y_position + 8), 
                            f"{oldest.get_year()} AD")
-        oldest_label.setSize(9)
+        oldest_label.setSize(12)
         oldest_label.draw(win)
         
         # Newest layer (top)
         newest = layers[0]
-        newest_label = Text(Point(320, newest.y_position + 4), 
+        newest_label = Text(Point(640, newest.y_position + 8), 
                            f"{newest.get_year()} AD")
-        newest_label.setSize(9)
+        newest_label.setSize(12)
         newest_label.draw(win)
         
         # Middle layer
         middle_idx = len(layers) // 2
         middle = layers[middle_idx]
-        middle_label = Text(Point(320, middle.y_position + 4), 
+        middle_label = Text(Point(640, middle.y_position + 8), 
                            f"{middle.get_year()} AD")
-        middle_label.setSize(9)
+        middle_label.setSize(12)
         middle_label.draw(win)
     
     return drawn_layers
 
 
-def create_info_display(win, x=70, y=200):
+def create_info_display(win, x=140, y=400):
     """
     Create text objects for displaying layer information.
     
@@ -121,32 +121,32 @@ def create_info_display(win, x=70, y=200):
     info_objects = {}
     
     # Title for info panel
-    title = Text(Point(x, y - 30), "Layer Information")
-    title.setSize(12)
+    title = Text(Point(x, y - 60), "Layer Information")
+    title.setSize(16)
     title.setStyle("bold")
     title.draw(win)
     
     # Year label
     year_label = Text(Point(x, y), "Year: Click a layer")
-    year_label.setSize(10)
+    year_label.setSize(13)
     year_label.draw(win)
     info_objects['year'] = year_label
     
     # Fe/Ti label
-    fe_ti_label = Text(Point(x, y + 20), "Fe/Ti: -")
-    fe_ti_label.setSize(10)
+    fe_ti_label = Text(Point(x, y + 40), "Fe/Ti: -")
+    fe_ti_label.setSize(13)
     fe_ti_label.draw(win)
     info_objects['fe_ti'] = fe_ti_label
     
     # Depth label
-    depth_label = Text(Point(x, y + 40), "Depth: -")
-    depth_label.setSize(10)
+    depth_label = Text(Point(x, y + 80), "Depth: -")
+    depth_label.setSize(13)
     depth_label.draw(win)
     info_objects['depth'] = depth_label
     
     # Interpretation label
-    interp_label = Text(Point(x, y + 70), "")
-    interp_label.setSize(9)
+    interp_label = Text(Point(x, y + 140), "")
+    interp_label.setSize(12)
     interp_label.setFill(color_rgb(80, 80, 120))
     interp_label.draw(win)
     info_objects['interpretation'] = interp_label
@@ -201,7 +201,7 @@ def handle_click(win, layers, info_objects):
     return False
 
 
-def run_scene(width=500, height=650):
+def run_scene(width=1000, height=1300):
     """
     Main function to run Scene 1: The Sediment Core.
     
@@ -219,7 +219,7 @@ def run_scene(width=500, height=650):
     
     # Create sediment layers
     print("Creating sediment layers...")
-    layers = create_sediment_layers(data, x=250, y_start=50, layer_height=8)
+    layers = create_sediment_layers(data, x=500, y_start=100, layer_height=16)
     print(f"Created {len(layers)} sediment layers")
     
     # Draw the sediment core
@@ -227,21 +227,21 @@ def run_scene(width=500, height=650):
     drawn_layers = draw_sediment_core(win, layers)
     
     # Create info display
-    info_objects = create_info_display(win, x=70, y=250)
+    info_objects = create_info_display(win, x=140, y=500)
     
     # Add legend
-    legend_title = Text(Point(70, 400), "Color Legend")
-    legend_title.setSize(11)
+    legend_title = Text(Point(140, 800), "Color Legend")
+    legend_title.setSize(14)
     legend_title.setStyle("bold")
     legend_title.draw(win)
     
-    legend_text = Text(Point(70, 430), "Darker = Higher Fe/Ti\n(More iron/erosion)\n\nLighter = Lower Fe/Ti\n(Drier conditions)")
-    legend_text.setSize(9)
+    legend_text = Text(Point(140, 860), "Darker = Higher Fe/Ti\n(More iron/erosion)\n\nLighter = Lower Fe/Ti\n(Drier conditions)")
+    legend_text.setSize(12)
     legend_text.draw(win)
     
     # Add close instruction
-    close_text = Text(Point(250, height - 20), "Click anywhere to interact | Close window to exit")
-    close_text.setSize(9)
+    close_text = Text(Point(500, height - 40), "Click anywhere to interact | Close window to exit")
+    close_text.setSize(12)
     close_text.setFill(color_rgb(100, 100, 100))
     close_text.draw(win)
     

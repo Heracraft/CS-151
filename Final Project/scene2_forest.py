@@ -121,7 +121,7 @@ def draw_forest_for_year(year, data, distance=10, angle=25, bg_color=None):
     lsys = create_tree_lsystem(iterations)
     
     # Create turtle interpreter
-    interpreter = TurtleInterpreter(800, 800, bgColor=bg_color)
+    interpreter = TurtleInterpreter(1600, 1600, bgColor=bg_color)
     
     # Position turtle at bottom center, facing up
     interpreter.place(xpos=0, ypos="end", angle=90)

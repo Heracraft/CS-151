@@ -111,40 +111,40 @@ def create_info_panel(win, x, y, width, height):
     info_objects = {}
     
     # Title
-    title = Text(Point(x + width/2, y + 20), "Solar Activity Cycles")
-    title.setSize(14)
+    title = Text(Point(x + width/2, y + 40), "Solar Activity Cycles")
+    title.setSize(18)
     title.setStyle("bold")
     title.draw(win)
     info_objects['title'] = title
     
     # Year display
-    year_text = Text(Point(x + width/2, y + 50), "Year: ----")
-    year_text.setSize(12)
+    year_text = Text(Point(x + width/2, y + 100), "Year: ----")
+    year_text.setSize(16)
     year_text.draw(win)
     info_objects['year'] = year_text
     
     # MagSus display
-    mag_text = Text(Point(x + width/2, y + 75), "MagSus: ----")
-    mag_text.setSize(10)
+    mag_text = Text(Point(x + width/2, y + 150), "MagSus: ----")
+    mag_text.setSize(13)
     mag_text.draw(win)
     info_objects['mag'] = mag_text
     
     # Recursion depth display
-    depth_text = Text(Point(x + width/2, y + 95), "Intensity: ----")
-    depth_text.setSize(10)
+    depth_text = Text(Point(x + width/2, y + 190), "Intensity: ----")
+    depth_text.setSize(13)
     depth_text.draw(win)
     info_objects['depth'] = depth_text
     
     # Interpretation
-    interp_text = Text(Point(x + width/2, y + 130), "")
-    interp_text.setSize(9)
+    interp_text = Text(Point(x + width/2, y + 260), "")
+    interp_text.setSize(12)
     interp_text.setFill(color_rgb(80, 80, 120))
     interp_text.draw(win)
     info_objects['interpretation'] = interp_text
     
     # Navigation instructions
-    nav_text = Text(Point(x + width/2, y + height - 30), "Click: Next Period\n'q' to Quit")
-    nav_text.setSize(9)
+    nav_text = Text(Point(x + width/2, y + height - 60), "Click: Next Period\n'q' to Quit")
+    nav_text.setSize(12)
     nav_text.setFill(color_rgb(100, 100, 100))
     nav_text.draw(win)
     info_objects['nav'] = nav_text
@@ -243,7 +243,7 @@ def animate_through_time(win, ripples, center_x, center_y, base_radius, info_obj
         pass
 
 
-def run_scene(width=800, height=600):
+def run_scene(width=1600, height=1200):
     """
     Main function to run Scene 3: The Solar Ripples.
     
@@ -276,11 +276,11 @@ def run_scene(width=800, height=600):
     draw_background_lake(win, center_x, center_y, base_radius + 50)
     
     # Create info panel
-    info_objects = create_info_panel(win, 20, 20, 200, 180)
+    info_objects = create_info_panel(win, 40, 40, 400, 360)
     
     # Add scene title
-    scene_title = Text(Point(center_x, 30), "Lake Masoko: Solar Activity Through Time")
-    scene_title.setSize(16)
+    scene_title = Text(Point(center_x, 60), "Lake Masoko: Solar Activity Through Time")
+    scene_title.setSize(20)
     scene_title.setStyle("bold")
     scene_title.setFill(color_rgb(220, 220, 255))
     scene_title.draw(win)

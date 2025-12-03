@@ -6,13 +6,14 @@ Final Project - The Breathing Lake
 
 main.py
 Main controller for the Interactive Environmental Art project.
-Provides menu system to navigate between three scenes:
+Provides both graphical home page and text menu to navigate between scenes:
 1. The Sediment Core (Zelle graphics, data visualization)
 2. The Changing Forest (L-systems, climate)
 3. The Solar Ripples (Recursion, solar activity)
 
 Usage:
-    python main.py              # Interactive menu mode
+    python main.py              # Graphical home page (default)
+    python main.py --text       # Text menu mode
     python main.py scene1       # Run Scene 1 directly
     python main.py scene2       # Run Scene 2 directly
     python main.py scene2 1750  # Run Scene 2 for year 1750
@@ -115,6 +116,30 @@ def run_scene3():
         print("Make sure all required files are present.")
 
 
+def run_graphical_home():
+    """Run the application with graphical home page."""
+    from views.home import run_home_page
+    
+    while True:
+        scene = run_home_page()
+        
+        if scene == 0:
+            print("\nThank you for exploring The Breathing Lake!")
+            print("Goodbye.\n")
+            break
+        elif scene == 1:
+            print("\nLaunching Scene 1: The Sediment Core...")
+            run_scene1()
+        elif scene == 2:
+            print("\nLaunching Scene 2: The Changing Forest...")
+            run_scene2()
+        elif scene == 3:
+            print("\nLaunching Scene 3: The Solar Ripples...")
+            run_scene3()
+        
+        print("\nScene closed. Returning to home page...")
+
+
 def run_menu_mode():
     """Run the application in interactive menu mode."""
     print_banner()
@@ -180,7 +205,8 @@ def run_command_line_mode(args):
 def print_usage():
     """Print command-line usage information."""
     print("\nUsage:")
-    print("  python main.py              # Interactive menu mode")
+    print("  python main.py              # Graphical home page (default)")
+    print("  python main.py --text       # Text menu mode")
     print("  python main.py scene1       # Run Scene 1 directly")
     print("  python main.py scene2       # Run Scene 2 interactively")
     print("  python main.py scene2 1750  # Run Scene 2 for year 1750")
@@ -190,11 +216,21 @@ def print_usage():
 def main():
     """Main entry point for the application."""
     if len(sys.argv) > 1:
-        # Command-line mode
-        run_command_line_mode(sys.argv)
+        # Check for text mode flag
+        if sys.argv[1] == '--text':
+            # Text menu mode
+            run_menu_mode()
+        else:
+            # Command-line mode
+            run_command_line_mode(sys.argv)
     else:
-        # Interactive menu mode
-        run_menu_mode()
+        # Default: Graphical home page
+        try:
+            run_graphical_home()
+        except Exception as e:
+            print(f"Error running graphical home: {e}")
+            print("Falling back to text menu mode...")
+            run_menu_mode()
 
 
 if __name__ == "__main__":
