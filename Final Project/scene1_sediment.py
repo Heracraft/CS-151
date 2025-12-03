@@ -219,28 +219,33 @@ def run_scene(width=1000, height=1300):
     
     # Create sediment layers
     print("Creating sediment layers...")
-    layers = create_sediment_layers(data, x=500, y_start=100, layer_height=16)
+    center_x = width // 2
+    layers = create_sediment_layers(data, x=center_x, y_start=100, layer_height=16)
     print(f"Created {len(layers)} sediment layers")
     
     # Draw the sediment core
     print("Drawing sediment core...")
     drawn_layers = draw_sediment_core(win, layers)
     
-    # Create info display
-    info_objects = create_info_display(win, x=140, y=500)
+    # Create info display (left side, vertically centered)
+    info_x = width // 7  # About 1/7 from left
+    info_y = height // 2  # Vertically centered
+    info_objects = create_info_display(win, x=info_x, y=info_y)
     
-    # Add legend
-    legend_title = Text(Point(140, 800), "Color Legend")
+    # Add legend (left side, lower portion)
+    legend_x = width // 7
+    legend_y = height * 0.62  # About 62% down
+    legend_title = Text(Point(legend_x, legend_y), "Color Legend")
     legend_title.setSize(14)
     legend_title.setStyle("bold")
     legend_title.draw(win)
     
-    legend_text = Text(Point(140, 860), "Darker = Higher Fe/Ti\n(More iron/erosion)\n\nLighter = Lower Fe/Ti\n(Drier conditions)")
+    legend_text = Text(Point(legend_x, legend_y + 60), "Darker = Higher Fe/Ti\n(More iron/erosion)\n\nLighter = Lower Fe/Ti\n(Drier conditions)")
     legend_text.setSize(12)
     legend_text.draw(win)
     
-    # Add close instruction
-    close_text = Text(Point(500, height - 40), "Click anywhere to interact | Close window to exit")
+    # Add close instruction (centered at bottom)
+    close_text = Text(Point(center_x, height - 40), "Click anywhere to interact | Close window to exit")
     close_text.setSize(12)
     close_text.setFill(color_rgb(100, 100, 100))
     close_text.draw(win)

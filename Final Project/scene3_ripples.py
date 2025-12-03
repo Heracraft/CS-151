@@ -272,11 +272,17 @@ def run_scene(width=1600, height=1200):
     center_y = height // 2
     base_radius = min(width, height) // 3
     
+    # Calculate info panel position relative to window size
+    panel_width = width // 4  # 1/4 of window width
+    panel_height = height // 3.33  # Approximately 1/3 of window height
+    panel_x = width // 40  # Small margin from left
+    panel_y = height // 30  # Small margin from top
+    
     # Draw background lake
     draw_background_lake(win, center_x, center_y, base_radius + 50)
     
     # Create info panel
-    info_objects = create_info_panel(win, 40, 40, 400, 360)
+    info_objects = create_info_panel(win, panel_x, panel_y, panel_width, panel_height)
     
     # Add scene title
     scene_title = Text(Point(center_x, 60), "Lake Masoko: Solar Activity Through Time")

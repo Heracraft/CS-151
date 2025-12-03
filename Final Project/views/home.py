@@ -245,8 +245,12 @@ def run_home_page():
             if scene is not None:
                 win.close()
                 return scene
-    except:
-        win.close()
+    except Exception:
+        # Handle window close or other errors gracefully
+        try:
+            win.close()
+        except:
+            pass
         return 0
 
 
