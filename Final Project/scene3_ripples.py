@@ -194,20 +194,26 @@ def animate_through_time(win, ripples, center_x, center_y, base_radius, info_obj
     :param info_objects: Dictionary of Text objects for info panel
     """
     current_index = 0
+    is_running = [True]  # Use list to allow modification in nested function
+    
+    def quit_handler(event):
+        """Handle quit key press safely."""
+        if event.char == 'q':
+            is_running[0] = False
     
     # Draw initial ripple
     if ripples:
         ripple = ripples[current_index]
         draw_ripple_scene(win, ripple, center_x, center_y, base_radius)
         update_info_panel(info_objects, ripple.get_year(), ripple.get_value(), 
-                         ripple.get_recursion_depth(), ripple._normalized_value)
+                         ripple.get_recursion_depth(), ripple.get_normalized_value())
     
     # Set up key handler for 'q' to quit
-    win.bind_all('<Key>', lambda event: win.destroy() if event.char == 'q' else None)
+    win.bind_all('<Key>', quit_handler)
     
     # Animation loop
     try:
-        while current_index < len(ripples):
+        while current_index < len(ripples) and is_running[0]:
             # Wait for click or key press
             try:
                 win.getMouse()
@@ -230,7 +236,7 @@ def animate_through_time(win, ripples, center_x, center_y, base_radius, info_obj
             
             # Update info
             update_info_panel(info_objects, ripple.get_year(), ripple.get_value(),
-                            ripple.get_recursion_depth(), ripple._normalized_value)
+                            ripple.get_recursion_depth(), ripple.get_normalized_value())
             
     except:
         # Window closed

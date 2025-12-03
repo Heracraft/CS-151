@@ -271,6 +271,10 @@ class SolarRipple(EnvironmentalFeature):
         """Get the recursion depth."""
         return self._recursion_depth
     
+    def get_normalized_value(self):
+        """Get the normalized value (0-1)."""
+        return self._normalized_value
+    
     def set_recursion_depth(self, depth):
         """Set the recursion depth."""
         self._recursion_depth = depth
