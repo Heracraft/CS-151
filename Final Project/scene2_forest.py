@@ -10,6 +10,7 @@ Scene 2: Changing Forest L-system visualization with GUI
 from tkinter import *
 from turtle import RawTurtle, TurtleScreen
 from lib.lsystem import Lsystem
+from lib.turtle_interpreter import TurtleInterpreter
 from masoko_data_handler import readData, getDataByYear, getValueRange, normalizeValue, getYearRange
 from environmental_features import ClimateTree
 
@@ -21,14 +22,14 @@ class ForestScene:
         
         self.window = Tk()
         self.window.title("Scene 2: Changing Forest")
-        self.window.geometry("1600x1700")
+        self.window.geometry("1600x1750")
         
         self.canvas = Canvas(self.window, width=1600, height=1600)
         self.canvas.pack()
         
         self.screen = TurtleScreen(self.canvas)
         self.screen.bgcolor("#F5F5DC")
-        self.screen.tracer(0)
+        self.screen.tracer(False)
         
         controlFrame = Frame(self.window)
         controlFrame.pack(side=BOTTOM, pady=10)
@@ -46,6 +47,9 @@ class ForestScene:
         
         goBtn = Button(controlFrame, text="Go", command=self.goToYear, width=8, font=("Arial", 14))
         goBtn.pack(side=LEFT, padx=5)
+        
+        exitBtn = Button(controlFrame, text="Exit", command=self.exitScene, width=8, font=("Arial", 14), bg="#FFCCCC")
+        exitBtn.pack(side=LEFT, padx=15)
         
         self.infoLabel = Label(self.window, text="", font=("Arial", 11), bg="white", relief=RIDGE, padx=10, pady=5)
         self.infoLabel.pack(side=BOTTOM, pady=5)
@@ -71,34 +75,8 @@ class ForestScene:
         
         return lsys
     
-    def drawTree(self, turtle, lsys, iterations, x, y, distance, angle):
-        """Draw single tree using L-system"""
-        treeString = lsys.buildString(iterations)
-        turtle.up()
-        turtle.goto(x, y)
-        turtle.setheading(90)
-        turtle.down()
-        
-        stack = []
-        for char in treeString:
-            if char == 'F' or char == 'G':
-                turtle.forward(distance)
-            elif char == '-':
-                turtle.right(angle)
-            elif char == '+':
-                turtle.left(angle)
-            elif char == '[':
-                stack.append((turtle.pos(), turtle.heading()))
-            elif char == ']':
-                if stack:
-                    pos, heading = stack.pop()
-                    turtle.up()
-                    turtle.goto(pos)
-                    turtle.setheading(heading)
-                    turtle.down()
-    
     def drawForest(self):
-        """Draw multiple trees for current year"""
+        """Draw multiple trees for current year using TurtleInterpreter"""
         self.screen.clear()
         self.screen.bgcolor("#F5F5DC")
         
@@ -121,12 +99,6 @@ class ForestScene:
         
         lsys = self.createTreeLsystem(iterations)
         
-        turtle = RawTurtle(self.screen)
-        turtle.hideturtle()
-        turtle.speed(0)
-        turtle.color("#654321")
-        turtle.width(2)
-        
         treePositions = [
             (-600, -700), (-300, -700), (0, -700), (300, -700), (600, -700),
             (-450, -550), (-150, -550), (150, -550), (450, -550),
@@ -137,24 +109,35 @@ class ForestScene:
         angle = 25
         
         for x, y in treePositions:
-            self.drawTree(turtle, lsys, iterations, x, y, distance, angle)
+            turtle = RawTurtle(self.screen)
+            turtle.hideturtle()
+            turtle.speed(0)
+            turtle.color("#654321")
+            turtle.width(2)
+            
+            interpreter = TurtleInterpreter(1600, 1600, customTurtle=turtle)
+            interpreter.place(x, y, angle=90)
+            interpreter.setColor((101, 67, 33))
+            interpreter.setWidth(2)
+            
+            tree.draw(interpreter, lsys, distance, angle)
         
         self.screen.update()
         
         if normalized > 0.7:
             climate = "Wet/Windy Period"
-            explanation = "High Si/Ti ratio indicates wet, windy conditions. Large, complex trees with dense branching."
+            explanation = "High Si/Ti ratio ({}). Wet, windy conditions produce large, complex trees.\nSilicon/Titanium shows aridity - high values = more moisture and wind erosion.\nVisually: More branching iterations = denser forest canopy.".format(f"{siTi:.2f}")
         elif normalized > 0.5:
             climate = "Moderate Climate"
-            explanation = "Medium Si/Ti ratio shows normal conditions. Healthy trees with regular branching."
+            explanation = "Medium Si/Ti ratio ({}). Normal conditions support healthy tree growth.\nModerate silicon indicates balanced moisture levels.\nVisually: Regular branching patterns = typical forest density.".format(f"{siTi:.2f}")
         elif normalized > 0.3:
             climate = "Drier Conditions"
-            explanation = "Lower Si/Ti ratio indicates drier conditions. Simpler tree structures with less branching."
+            explanation = "Lower Si/Ti ratio ({}). Drier conditions limit tree complexity.\nLess silicon suggests reduced moisture availability.\nVisually: Simpler branches = sparser vegetation.".format(f"{siTi:.2f}")
         else:
             climate = "Dry Period (Little Ice Age)"
-            explanation = "Very low Si/Ti ratio shows dry period. Sparse, simple vegetation with minimal branching."
+            explanation = "Very low Si/Ti ratio ({}). Dry period creates sparse vegetation.\nMinimal silicon indicates very low moisture and wind activity.\nVisually: Minimal branching = very sparse forest.".format(f"{siTi:.2f}")
         
-        infoText = f"Year: {actualYear} AD | Si/Ti Ratio: {siTi:.2f} | {climate}\n{explanation}"
+        infoText = f"Year: {actualYear} AD | {climate} | Tree Complexity: {iterations} iterations\n{explanation}"
         self.infoLabel.config(text=infoText)
     
     def previousYear(self):
@@ -184,6 +167,10 @@ class ForestScene:
         except ValueError:
             self.yearEntry.delete(0, END)
             self.yearEntry.insert(0, str(self.currentYear))
+    
+    def exitScene(self):
+        """Exit the scene"""
+        self.window.destroy()
     
     def run(self):
         """Run the scene"""

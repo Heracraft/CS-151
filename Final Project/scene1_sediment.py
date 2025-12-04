@@ -37,7 +37,7 @@ def createSedimentLayers(data, x=500, yStart=100, layerHeight=16):
     return layers
 
 def drawSedimentCore(win, layers):
-    """Draw all sediment layers"""
+    """Draw all sediment layers with year labels"""
     title = Text(Point(500, 40), "Sediment Core")
     title.setSize(18)
     title.setStyle("bold")
@@ -48,19 +48,37 @@ def drawSedimentCore(win, layers):
     
     if layers:
         oldest = layers[-1]
-        oldestLabel = Text(Point(640, oldest.yPosition + 8), f"{oldest.getYear()} AD")
-        oldestLabel.setSize(12)
+        oldestLabel = Text(Point(380, oldest.yPosition + 8), f"{oldest.getYear()} AD")
+        oldestLabel.setSize(11)
         oldestLabel.draw(win)
         
         newest = layers[0]
-        newestLabel = Text(Point(640, newest.yPosition + 8), f"{newest.getYear()} AD")
-        newestLabel.setSize(12)
+        newestLabel = Text(Point(380, newest.yPosition + 8), f"{newest.getYear()} AD")
+        newestLabel.setSize(11)
         newestLabel.draw(win)
+        
+        q1Idx = len(layers) // 4
+        q1Layer = layers[q1Idx]
+        q1Label = Text(Point(380, q1Layer.yPosition + 8), f"{q1Layer.getYear()} AD")
+        q1Label.setSize(11)
+        q1Label.draw(win)
+        
+        midIdx = len(layers) // 2
+        midLayer = layers[midIdx]
+        midLabel = Text(Point(380, midLayer.yPosition + 8), f"{midLayer.getYear()} AD")
+        midLabel.setSize(11)
+        midLabel.draw(win)
+        
+        q3Idx = (3 * len(layers)) // 4
+        q3Layer = layers[q3Idx]
+        q3Label = Text(Point(380, q3Layer.yPosition + 8), f"{q3Layer.getYear()} AD")
+        q3Label.setSize(11)
+        q3Label.draw(win)
     
     return layers
 
-def createInfoDisplay(win, x=140, y=500):
-    """Create text objects for displaying layer info"""
+def createInfoDisplay(win, x=750, y=400):
+    """Create info panel on right side"""
     infoObjects = {}
     
     title = Text(Point(x, y - 60), "Layer Info")
@@ -106,14 +124,14 @@ def updateInfoDisplay(infoObjects, layer):
     
     infoObjects['interp'].setText(interpretation)
 
-def createExplanation(win, x=140, y=800):
-    """Create explanation panel"""
-    title = Text(Point(x, y), "What Fe/Ti Shows")
-    title.setSize(14)
+def createLegend(win, x=140, y=400):
+    """Create legend on left side"""
+    title = Text(Point(x, y - 60), "Legend")
+    title.setSize(16)
     title.setStyle("bold")
     title.draw(win)
     
-    explanation = Text(Point(x, y + 60), "Fe/Ti ratio measures\niron vs titanium.\n\nDarker = More iron\n= Wet climate\n= More erosion\n\nLighter = Less iron\n= Dry climate\n= Less erosion")
+    explanation = Text(Point(x, y + 30), "Fe/Ti Ratio:\nIron vs Titanium\n\nDarker Color:\nMore iron\nWet climate\nMore erosion\n\nLighter Color:\nLess iron\nDry climate\nLess erosion")
     explanation.setSize(11)
     explanation.draw(win)
 
@@ -138,10 +156,8 @@ def runScene(width=1000, height=1300):
     layers = createSedimentLayers(data, x=centerX, yStart=100, layerHeight=16)
     drawnLayers = drawSedimentCore(win, layers)
     
-    infoX = width // 7
-    infoY = height // 2
-    infoObjects = createInfoDisplay(win, x=infoX, y=infoY)
-    createExplanation(win, x=infoX, y=800)
+    createLegend(win, x=140, y=400)
+    infoObjects = createInfoDisplay(win, x=750, y=400)
     
     try:
         while True:
