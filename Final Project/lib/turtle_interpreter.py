@@ -21,7 +21,7 @@ class TurtleInterpreter:
 
         turtle.setup(width=dx, height=dy)
 
-        # turtle.tracer(False)
+        turtle.tracer(False)
 
         if bgColor:
             turtle.getscreen().bgcolor(bgColor)
