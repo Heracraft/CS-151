@@ -82,6 +82,15 @@ def runHomePage():
     subtitle.setFill(color_rgb(80, 80, 80))
     subtitle.draw(win)
     
+    description = Text(Point(600, 450), 
+        "Lake Masoko's sediment layers preserve 500 years of climate history.\n" +
+        "Geological data reveals solar cycles, rainfall patterns, and vegetation changes.\n" +
+        "Iron ratios show wet vs dry periods. Silicon levels indicate tree growth.\n" +
+        "Magnetic particles record solar activity - all visualized through interactive art.")
+    description.setSize(11)
+    description.setFill(color_rgb(60, 60, 80))
+    description.draw(win)
+    
     buttons = []
     
     button1 = createSceneButton(win, 150, 200, 280, 180, 1, "Sediment Core")
@@ -93,13 +102,13 @@ def runHomePage():
     button3 = createSceneButton(win, 770, 200, 280, 180, 3, "Solar Ripples")
     buttons.append(button3)
     
-    exitButton = Rectangle(Point(500, 500), Point(700, 570))
+    exitButton = Rectangle(Point(500, 550), Point(700, 620))
     exitButton.setFill(color_rgb(200, 200, 200))
     exitButton.setOutline(color_rgb(100, 100, 100))
     exitButton.setWidth(2)
     exitButton.draw(win)
     
-    exitText = Text(Point(600, 535), "Exit")
+    exitText = Text(Point(600, 585), "Exit")
     exitText.setSize(16)
     exitText.setStyle("bold")
     exitText.setFill(color_rgb(60, 60, 60))
@@ -108,9 +117,9 @@ def runHomePage():
     buttons.append({
         'button': exitButton,
         'x1': 500,
-        'y1': 500,
+        'y1': 550,
         'x2': 700,
-        'y2': 570,
+        'y2': 620,
         'scene': 0
     })
     
