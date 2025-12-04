@@ -64,6 +64,11 @@ def createInfoPanel(win, x, y, width, height):
     depthText.draw(win)
     infoObjects['depth'] = depthText
     
+    explainText = Text(Point(x + width/2, y + 220), "")
+    explainText.setSize(11)
+    explainText.setFill(color_rgb(80, 80, 120))
+    infoObjects['explain'] = explainText
+    
     navText = Text(Point(x + width/2, y + height - 60), "Click: Next\n'q' to Quit")
     navText.setSize(12)
     navText.setFill(color_rgb(100, 100, 100))
@@ -72,10 +77,19 @@ def createInfoPanel(win, x, y, width, height):
     
     return infoObjects
 
-def updateInfoPanel(infoObjects, year, depth):
+def updateInfoPanel(infoObjects, year, depth, normalized):
     """Update info panel with ripple data"""
     infoObjects['year'].setText(f"Year: {year} AD")
     infoObjects['depth'].setText(f"Intensity: {depth}/7")
+    
+    if normalized > 0.7:
+        explanation = "High magnetic\nsusceptibility\nStrong solar activity"
+    elif normalized > 0.4:
+        explanation = "Moderate magnetic\nsusceptibility\nNormal solar activity"
+    else:
+        explanation = "Low magnetic\nsusceptibility\nWeak solar activity"
+    
+    infoObjects['explain'].setText(explanation)
 
 def animateThroughTime(win, ripples, centerX, centerY, baseRadius, infoObjects):
     """Animate through time showing solar activity"""
@@ -89,7 +103,7 @@ def animateThroughTime(win, ripples, centerX, centerY, baseRadius, infoObjects):
     if ripples:
         ripple = ripples[currentIndex]
         ripple.draw(win, centerX, centerY, baseRadius)
-        updateInfoPanel(infoObjects, ripple.getYear(), ripple.getRecursionDepth())
+        updateInfoPanel(infoObjects, ripple.getYear(), ripple.getRecursionDepth(), ripple.getNormalizedValue())
     
     win.bind_all('<Key>', quitHandler)
     
@@ -108,7 +122,7 @@ def animateThroughTime(win, ripples, centerX, centerY, baseRadius, infoObjects):
             
             drawBackgroundLake(win, centerX, centerY, baseRadius + 50)
             ripple.draw(win, centerX, centerY, baseRadius)
-            updateInfoPanel(infoObjects, ripple.getYear(), ripple.getRecursionDepth())
+            updateInfoPanel(infoObjects, ripple.getYear(), ripple.getRecursionDepth(), ripple.getNormalizedValue())
             
     except:
         pass
@@ -127,7 +141,7 @@ def runScene(width=1600, height=1200):
     baseRadius = min(width, height) // 3
     
     panelWidth = width // 4
-    panelHeight = height // 3.33
+    panelHeight = height // 2.5
     panelX = width // 40
     panelY = height // 30
     
@@ -139,6 +153,11 @@ def runScene(width=1600, height=1200):
     sceneTitle.setStyle("bold")
     sceneTitle.setFill(color_rgb(220, 220, 255))
     sceneTitle.draw(win)
+    
+    explanation = Text(Point(centerX, width - 100), "MagSus shows magnetic susceptibility\nMore ripples = Higher solar activity")
+    explanation.setSize(12)
+    explanation.setFill(color_rgb(200, 200, 255))
+    explanation.draw(win)
     
     animateThroughTime(win, ripples, centerX, centerY, baseRadius, infoObjects)
     

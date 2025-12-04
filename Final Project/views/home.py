@@ -32,14 +32,16 @@ def createSceneButton(win, x, y, width, height, sceneNum, title):
     button.setWidth(3)
     button.draw(win)
     
-    badge = Text(Point(x + 40, y + 40), str(sceneNum))
-    badge.setSize(24)
+    badge = Text(Point(x + 50, y + 50), str(sceneNum))
+    badge.setSize(28)
     badge.setStyle("bold")
     badge.setFill(textColor)
     badge.draw(win)
     
-    titleText = Text(Point(x + width/2, y + 90), title)
-    titleText.setSize(18)
+    centerX = x + width/2
+    centerY = y + height/2
+    titleText = Text(Point(centerX, centerY), title)
+    titleText.setSize(16)
     titleText.setStyle("bold")
     titleText.setFill(textColor)
     titleText.draw(win)
@@ -70,35 +72,35 @@ def runHomePage():
     win.setBackground(color_rgb(240, 240, 235))
     
     mainTitle = Text(Point(600, 80), "THE BREATHING LAKE")
-    mainTitle.setSize(32)
+    mainTitle.setSize(28)
     mainTitle.setStyle("bold")
     mainTitle.setFill(color_rgb(20, 60, 100))
     mainTitle.draw(win)
     
     subtitle = Text(Point(600, 130), "Click a scene to begin")
-    subtitle.setSize(16)
+    subtitle.setSize(14)
     subtitle.setFill(color_rgb(80, 80, 80))
     subtitle.draw(win)
     
     buttons = []
     
-    button1 = createSceneButton(win, 150, 250, 300, 180, 1, "Sediment Core")
+    button1 = createSceneButton(win, 150, 200, 280, 180, 1, "Sediment Core")
     buttons.append(button1)
     
-    button2 = createSceneButton(win, 450, 250, 300, 180, 2, "Changing Forest")
+    button2 = createSceneButton(win, 460, 200, 280, 180, 2, "Changing Forest")
     buttons.append(button2)
     
-    button3 = createSceneButton(win, 750, 250, 300, 180, 3, "Solar Ripples")
+    button3 = createSceneButton(win, 770, 200, 280, 180, 3, "Solar Ripples")
     buttons.append(button3)
     
-    exitButton = Rectangle(Point(500, 550), Point(700, 620))
+    exitButton = Rectangle(Point(500, 500), Point(700, 570))
     exitButton.setFill(color_rgb(200, 200, 200))
     exitButton.setOutline(color_rgb(100, 100, 100))
     exitButton.setWidth(2)
     exitButton.draw(win)
     
-    exitText = Text(Point(600, 585), "Exit")
-    exitText.setSize(18)
+    exitText = Text(Point(600, 535), "Exit")
+    exitText.setSize(16)
     exitText.setStyle("bold")
     exitText.setFill(color_rgb(60, 60, 60))
     exitText.draw(win)
@@ -106,9 +108,9 @@ def runHomePage():
     buttons.append({
         'button': exitButton,
         'x1': 500,
-        'y1': 550,
+        'y1': 500,
         'x2': 700,
-        'y2': 620,
+        'y2': 570,
         'scene': 0
     })
     

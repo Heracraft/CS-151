@@ -83,13 +83,39 @@ def createInfoDisplay(win, x=140, y=500):
     depthLabel.draw(win)
     infoObjects['depth'] = depthLabel
     
+    interpLabel = Text(Point(x, y + 140), "")
+    interpLabel.setSize(11)
+    interpLabel.setFill(color_rgb(80, 80, 120))
+    infoObjects['interp'] = interpLabel
+    
     return infoObjects
 
 def updateInfoDisplay(infoObjects, layer):
     """Update info display with layer data"""
+    feTi = layer.getValue()
     infoObjects['year'].setText(f"{layer.getYear()} AD")
-    infoObjects['feTi'].setText(f"Fe/Ti: {layer.getValue():.2f}")
+    infoObjects['feTi'].setText(f"Fe/Ti: {feTi:.2f}")
     infoObjects['depth'].setText(f"Depth: {layer.getDepth():.2f} cm")
+    
+    if feTi > 4.0:
+        interpretation = "High iron content\nWet period with\nincreased erosion"
+    elif feTi > 3.7:
+        interpretation = "Moderate iron\nNormal conditions"
+    else:
+        interpretation = "Low iron content\nDry period\n(Little Ice Age)"
+    
+    infoObjects['interp'].setText(interpretation)
+
+def createExplanation(win, x=140, y=800):
+    """Create explanation panel"""
+    title = Text(Point(x, y), "What Fe/Ti Shows")
+    title.setSize(14)
+    title.setStyle("bold")
+    title.draw(win)
+    
+    explanation = Text(Point(x, y + 60), "Fe/Ti ratio measures\niron vs titanium.\n\nDarker = More iron\n= Wet climate\n= More erosion\n\nLighter = Less iron\n= Dry climate\n= Less erosion")
+    explanation.setSize(11)
+    explanation.draw(win)
 
 def handleClick(win, layers, infoObjects):
     """Handle mouse clicks on sediment layers"""
@@ -115,6 +141,7 @@ def runScene(width=1000, height=1300):
     infoX = width // 7
     infoY = height // 2
     infoObjects = createInfoDisplay(win, x=infoX, y=infoY)
+    createExplanation(win, x=infoX, y=800)
     
     try:
         while True:
