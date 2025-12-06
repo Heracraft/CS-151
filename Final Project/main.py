@@ -11,12 +11,12 @@ import sys
 
 def runScene1():
     """Run Scene 1: The Sediment Core"""
-    import scene1_sediment
+    from scenes import scene1_sediment
     scene1_sediment.runScene()
 
 def runScene2(year=None):
     """Run Scene 2: The Changing Forest"""
-    import scene2_forest
+    from scenes import scene2_forest
     if year:
         scene2_forest.runSceneWithYear(year)
     else:
@@ -24,12 +24,12 @@ def runScene2(year=None):
 
 def runScene3():
     """Run Scene 3: The Solar Ripples"""
-    import scene3_ripples
+    from scenes import scene3_ripples
     scene3_ripples.runScene()
 
 def runHome():
     """Run graphical home page"""
-    from views.home import runHomePage
+    from scenes.home import runHomePage
     
     while True:
         scene = runHomePage()
