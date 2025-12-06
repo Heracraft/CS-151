@@ -1,50 +1,63 @@
-from tkinter import *
-from turtle import RawTurtle, TurtleScreen
-import json
+"""
+Nehemia Kaaya
+CS 151
+Section B
+Final Project - Masoko Lake
 
-def loadDataset(filename="data.json"):
-    """
-    Reads the json file which holds the dataset and returns the value as a dict
+Main controller for interactive environmental art project
+"""
+
+import sys
+
+def runScene1():
+    """Run Scene 1: The Sediment Core"""
+    from scenes import scene1_sediment
+    scene1_sediment.runScene()
+
+def runScene2(year=None):
+    """Run Scene 2: The Rain Forest"""
+    from scenes import scene2_forest
+    if year:
+        scene2_forest.runSceneWithYear(year)
+    else:
+        scene2_forest.runSceneInteractive()
+
+def runScene3():
+    """Run Scene 3: The Solar Clock"""
+    from scenes import scene3_ripples
+    scene3_ripples.runScene()
+
+def runHome():
+    """Run graphical home page"""
+    from scenes.home import runHomePage
     
-    :param filename: The DATASET!!!!
-    """
+    while True:
+        scene = runHomePage()
+        
+        if scene == 0:
+            break
+        elif scene == 1:
+            runScene1()
+        elif scene == 2:
+            runScene2()
+        elif scene == 3:
+            runScene3()
 
-    with open(filename, "r") as jsonFile:
-        data: list[dict[str, str | float | int]] = json.load(jsonFile)
-
-        print(data)
-
-        jsonFile.close()
-
-
-def createWindow(title, geometry):
-    window = Tk()
-    window.title(title)
-    window.geometry(geometry)
-
-    return window
-
-
-def wahdwoda(t: RawTurtle):
-    t.forward(100)
-    t.right(90)
-
-
-def main():
-    window = createWindow("Counter", "500x500")
-
-    canvas = Canvas(window)
-    canvas.pack(fill="both", expand=True, ipadx=100, ipady=100)
-
-    turtleScreen = TurtleScreen(canvas)
-    turtle = RawTurtle(turtleScreen)
-
-    button = Button(window, text="apomaoec",
-                    command=lambda: wahdwoda(turtle)).pack(side="bottom")
-
-    window.mainloop()
-
+def main(argv):
+    if len(argv) > 1:
+        scene = argv[1].lower()
+        
+        if scene == 'scene1':
+            runScene1()
+        elif scene == 'scene2':
+            if len(argv) > 2:
+                runScene2(int(argv[2]))
+            else:
+                runScene2()
+        elif scene == 'scene3':
+            runScene3()
+    else:
+        runHome()
 
 if __name__ == "__main__":
-    # main()
-    loadDataset()
+    main(sys.argv)
