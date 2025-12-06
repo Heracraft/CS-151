@@ -4,12 +4,12 @@ CS 151
 Section B
 Final Project - The Breathing Lake
 
-Scene 3: Solar Ripples recursive visualization
+Scene 3: Solar Clock recursive visualization
 """
 
-from graphics import GraphWin, Text, Point, color_rgb, Circle, Rectangle
-from masoko_data_handler import readData, getValueRange, normalizeValue
-from environmental_features import SolarRipple
+from lib.graphicsPlus import GraphWin, Text, Point, color_rgb, Circle, Rectangle
+from lib.masoko_data_handler import readData, getValueRange, normalizeValue
+from lib.environmental_features import SolarRipple
 
 def createRippleObjects(data):
     """Create SolarRipple objects from dataset"""
@@ -153,7 +153,7 @@ def animateThroughTime(win, ripples, centerX, centerY, baseRadius, infoObjects):
 
 def runScene(width=1600, height=1200):
     """Run Scene 3"""
-    win = GraphWin("Scene 3: Solar Ripples", width, height)
+    win = GraphWin("Scene 3: Solar Clock", width, height)
     win.setBackground(color_rgb(15, 30, 45))
     
     data = readData("data.json")

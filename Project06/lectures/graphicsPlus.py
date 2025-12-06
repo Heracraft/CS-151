@@ -21,7 +21,7 @@ simple example, here is a complete program to draw a circle of radius
 10 centered in a 100x100 window:
 
 --------------------------------------------------------------------
-from graphics import *
+from lib.graphicsPlus import *
 
 def main():
     win = GraphWin("My Circle", 100, 100)

@@ -2,7 +2,7 @@
 Nehemia Kaaya
 CS 151
 Section B
-Final Project - The Breathing Lake
+Final Project - Masoko Lake
 
 Main controller for interactive environmental art project
 """
@@ -15,7 +15,7 @@ def runScene1():
     scene1_sediment.runScene()
 
 def runScene2(year=None):
-    """Run Scene 2: The Changing Forest"""
+    """Run Scene 2: The Rain Forest"""
     from scenes import scene2_forest
     if year:
         scene2_forest.runSceneWithYear(year)
@@ -23,7 +23,7 @@ def runScene2(year=None):
         scene2_forest.runSceneInteractive()
 
 def runScene3():
-    """Run Scene 3: The Solar Ripples"""
+    """Run Scene 3: The Solar Clock"""
     from scenes import scene3_ripples
     scene3_ripples.runScene()
 

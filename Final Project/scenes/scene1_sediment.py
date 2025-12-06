@@ -7,9 +7,9 @@ Final Project - The Breathing Lake
 Scene 1: Sediment Core visualization
 """
 
-from graphics import GraphWin, Text, Point, color_rgb
-from masoko_data_handler import readData, getValueRange, normalizeValue
-from environmental_features import SedimentLayer
+from lib.graphicsPlus import GraphWin, Text, Point, color_rgb
+from lib.masoko_data_handler import readData, getValueRange, normalizeValue
+from lib.environmental_features import SedimentLayer
 
 def createSedimentLayers(data, x=500, yStart=100, layerHeight=16):
     """Create SedimentLayer objects from dataset"""
@@ -126,7 +126,7 @@ def updateInfoDisplay(infoObjects, layer):
 
 def createLegend(win, x=140, y=400):
     """Create legend on left side"""
-    title = Text(Point(x, y - 60), "Legend")
+    title = Text(Point(x, y - 200), "Legend")
     title.setSize(16)
     title.setStyle("bold")
     title.draw(win)

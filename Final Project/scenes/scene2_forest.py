@@ -2,16 +2,17 @@
 Nehemia Kaaya
 CS 151
 Section B
-Final Project - The Breathing Lake
+Final Project - Masoko Lake
 
-Scene 2: Changing Forest L-system visualization with GUI
+Scene 2: Rain Forest L-system visualization with GUI
 """
 
 from tkinter import *
 from turtle import RawTurtle, TurtleScreen
 from lib.lsystem import Lsystem
-from masoko_data_handler import readData, getDataByYear, getValueRange, normalizeValue, getYearRange
-from environmental_features import ClimateTree
+from lib.turtle_interpreter import TurtleInterpreter
+from lib.masoko_data_handler import readData, getDataByYear, getValueRange, normalizeValue, getYearRange
+from lib.environmental_features import ClimateTree
 
 class ForestScene:
     def __init__(self):
@@ -20,7 +21,7 @@ class ForestScene:
         self.currentYear = self.minYear
         
         self.window = Tk()
-        self.window.title("Scene 2: Changing Forest")
+        self.window.title("Scene 2: Rain Forest")
         self.window.geometry("1600x1750")
         
         self.canvas = Canvas(self.window, width=1600, height=1600)
@@ -74,34 +75,8 @@ class ForestScene:
         
         return lsys
     
-    def drawTree(self, turtle, lsys, iterations, x, y, distance, angle):
-        """Draw single tree using L-system"""
-        treeString = lsys.buildString(iterations)
-        turtle.up()
-        turtle.goto(x, y)
-        turtle.setheading(90)
-        turtle.down()
-        
-        stack = []
-        for char in treeString:
-            if char == 'F' or char == 'G':
-                turtle.forward(distance)
-            elif char == '-':
-                turtle.right(angle)
-            elif char == '+':
-                turtle.left(angle)
-            elif char == '[':
-                stack.append((turtle.pos(), turtle.heading()))
-            elif char == ']':
-                if stack:
-                    pos, heading = stack.pop()
-                    turtle.up()
-                    turtle.goto(pos)
-                    turtle.setheading(heading)
-                    turtle.down()
-    
     def drawForest(self):
-        """Draw multiple trees for current year"""
+        """Draw multiple trees for current year using TurtleInterpreter"""
         self.screen.clear()
         self.screen.bgcolor("#F5F5DC")
         
@@ -124,12 +99,6 @@ class ForestScene:
         
         lsys = self.createTreeLsystem(iterations)
         
-        turtle = RawTurtle(self.screen)
-        turtle.hideturtle()
-        turtle.speed(0)
-        turtle.color("#654321")
-        turtle.width(2)
-        
         treePositions = [
             (-600, -700), (-300, -700), (0, -700), (300, -700), (600, -700),
             (-450, -550), (-150, -550), (150, -550), (450, -550),
@@ -140,7 +109,22 @@ class ForestScene:
         angle = 25
         
         for x, y in treePositions:
-            self.drawTree(turtle, lsys, iterations, x, y, distance, angle)
+            turtle = RawTurtle(self.screen)
+
+            turtle.hideturtle()
+            turtle.speed(0)
+            turtle.width(2)
+
+            theCurrentScreen=turtle.getscreen()
+            theCurrentScreen.tracer(False)
+            
+            interpreter = TurtleInterpreter(1600, 1600, customTurtle=turtle)
+            interpreter.place(x, y, angle=90)
+            interpreter.setColor((101/255, 67/255, 33/255))
+            interpreter.setWidth(2)
+            
+            tree.draw(interpreter, lsys, distance, angle)
+        
         
         self.screen.update()
         

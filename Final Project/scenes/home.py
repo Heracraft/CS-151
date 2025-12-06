@@ -11,7 +11,7 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from graphics import GraphWin, Text, Point, Rectangle, color_rgb
+from lib.graphicsPlus import GraphWin, Text, Point, Rectangle, color_rgb
 
 def createSceneButton(win, x, y, width, height, sceneNum, title):
     """Create a clickable button for a scene"""
@@ -96,10 +96,10 @@ def runHomePage():
     button1 = createSceneButton(win, 150, 200, 280, 180, 1, "Sediment Core")
     buttons.append(button1)
     
-    button2 = createSceneButton(win, 460, 200, 280, 180, 2, "Changing Forest")
+    button2 = createSceneButton(win, 460, 200, 280, 180, 2, "Rain Forest")
     buttons.append(button2)
     
-    button3 = createSceneButton(win, 770, 200, 280, 180, 3, "Solar Ripples")
+    button3 = createSceneButton(win, 770, 200, 280, 180, 3, "Solar Clock")
     buttons.append(button3)
     
     exitButton = Rectangle(Point(500, 550), Point(700, 620))

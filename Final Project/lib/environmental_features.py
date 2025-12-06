@@ -88,7 +88,7 @@ class SedimentLayer(EnvironmentalFeature):
     
     def draw(self, win, x, y):
         """Draw sediment layer as rectangle"""
-        from graphics import Point, Rectangle, color_rgb
+        from lib.graphicsPlus import Point, Rectangle, color_rgb
         
         p1 = Point(x - self._width/2, y)
         p2 = Point(x + self._width/2, y + self._height)
@@ -169,7 +169,7 @@ class SolarRipple(EnvironmentalFeature):
         self._drawRecursiveRipples(win, centerX, centerY, baseRadius, self._recursionDepth)
     
     def _drawRecursiveRipples(self, win, x, y, radius, depth):
-        from graphics import Circle, Point, color_rgb
+        from lib.graphicsPlus import Circle, Point, color_rgb
         
         if depth <= 0 or radius < 5:
             return
