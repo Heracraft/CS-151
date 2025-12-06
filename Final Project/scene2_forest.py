@@ -110,14 +110,18 @@ class ForestScene:
         
         for x, y in treePositions:
             turtle = RawTurtle(self.screen)
+
             turtle.hideturtle()
             turtle.speed(0)
             turtle.color("#654321")
             turtle.width(2)
+
+            theCurrentScreen=turtle.getscreen()
+            theCurrentScreen.tracer(False)
             
             interpreter = TurtleInterpreter(1600, 1600, customTurtle=turtle)
             interpreter.place(x, y, angle=90)
-            interpreter.setColor((101, 67, 33))
+            interpreter.setColor((101/255, 67/255, 33/255))
             interpreter.setWidth(2)
             
             tree.draw(interpreter, lsys, distance, angle)

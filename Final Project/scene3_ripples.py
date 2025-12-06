@@ -99,10 +99,9 @@ def updateInfoPanel(infoObjects, year, depth, normalized, magSusValue):
 
 def createVisualExplanation(win, centerX, bottomY):
     """Create explanation of visual representation"""
-    explanationText = Text(Point(centerX, bottomY - 80), 
-        "VISUAL GUIDE: Concentric circles represent magnetic susceptibility over time\n" +
-        "Each ring is drawn recursively - more rings = higher solar activity\n" +
-        "Lake sediments preserve magnetic particles that reflect solar cycles")
+    explanationText = Text(Point(centerX, bottomY - 100), 
+        "VISUAL GUIDE: Concentric circles represent magnetic susceptibility over time Each ring is drawn recursively\n" +
+        "more rings = higher solar activity Lake sediments preserve magnetic particles that reflect solar cycles")
     explanationText.setSize(11)
     explanationText.setFill(color_rgb(200, 200, 255))
     explanationText.draw(win)
@@ -166,9 +165,9 @@ def runScene(width=1600, height=1200):
     baseRadius = min(width, height) // 3
     
     panelWidth = width // 3.5
-    panelHeight = height // 2.2
+    panelHeight = height // 4
     panelX = width // 40
-    panelY = height // 30
+    panelY = height // 10
     
     drawBackgroundLake(win, centerX, centerY, baseRadius + 50)
     infoObjects = createInfoPanel(win, panelX, panelY, int(panelWidth), int(panelHeight))

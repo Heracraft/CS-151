@@ -164,7 +164,7 @@ class SolarRipple(EnvironmentalFeature):
     def setRecursionDepth(self, depth):
         self._recursionDepth = depth
     
-    def draw(self, win, centerX, centerY, baseRadius=200):
+    def draw(self, win, centerX, centerY, baseRadius=100):
         """Draw recursive ripples"""
         self._drawRecursiveRipples(win, centerX, centerY, baseRadius, self._recursionDepth)
     
