@@ -71,7 +71,8 @@ def runHomePage():
     win = GraphWin("The Breathing Lake", 1200, 900)
     win.setBackground(color_rgb(240, 240, 235))
     
-    mainTitle = Text(Point(600, 80), "THE BREATHING LAKE")
+    mainTitle = Text(Point(600, 80), "LAKE MASOKO")
+
     mainTitle.setSize(28)
     mainTitle.setStyle("bold")
     mainTitle.setFill(color_rgb(20, 60, 100))

@@ -56,7 +56,7 @@ def trees(y, windowWidth, noOfIterations=4):
         finalString = lsys.buildString(noOfIterations)
 
         interpreter.place(x, y, 90)
-        interpreter.drawString(finalString, 5, 22)
+        interpreter.drawString(finalString, 15, 22)
         x=x+(deltaX*(index+1))
 
 
